@@ -4,6 +4,7 @@ import by.yahor.chat.client.ClientLocation;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import my.yahorfilipchyk.console.Console;
 
 /**
  *
@@ -39,11 +40,12 @@ public class ServerThread extends Thread {
     @Override
     public void run() {
         int command = NetServer.NO_COMMAND;
+        String username = "";
         while (NetServer.DISCONNECT != (command = server.resieveCommand()) && !disconnected) {
             System.out.println(command);
             switch (command) {
                 case NetServer.REGISTER:
-                    String username = server.resieveMessage();
+                    username = server.resieveMessage();
                     if (Server.userExists(username)) {
                         server.sendCommand(NetServer.USER_EXISTS);
                     } else {
@@ -58,7 +60,7 @@ public class ServerThread extends Thread {
                         server.sendCommand(NetServer.PEER_EXISTS);
                         // sending ip-address;
                         ClientLocation clientLocation = Server.getUser(peerName);
-                        byte[] ipv4 = clientLocation.getIpv4();
+                        int[] ipv4 = clientLocation.getIpv4();
                         server.sendCommand(ipv4[0]);
                         server.sendCommand(ipv4[1]);
                         server.sendCommand(ipv4[2]);
@@ -72,15 +74,21 @@ public class ServerThread extends Thread {
                     break;
             }
         }
+        unregister(username);
+    }
+    
+    private void unregister(String username) {
+        Server.deleteUser(username);
     }
     
     private void register(String username) {
-        byte[] ipv4 = new byte[4];
-        ipv4[0] = (byte) server.resieveCommand();
-        ipv4[1] = (byte) server.resieveCommand();
-        ipv4[2] = (byte) server.resieveCommand();
-        ipv4[3] = (byte) server.resieveCommand();
+        int[] ipv4 = new int[4];
+        ipv4[0] = server.resieveCommand();
+        ipv4[1] = server.resieveCommand();
+        ipv4[2] = server.resieveCommand();
+        ipv4[3] = server.resieveCommand();
         int port = server.resieveCommand();
+        Console.writeLine(username + " port: " + port);
         Server.addUser(username, new ClientLocation(ipv4, port));
     }
 }
