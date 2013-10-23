@@ -2,7 +2,9 @@
 package by.yahor.chat.server;
 
 import by.yahor.chat.client.ClientLocation;
+import by.yahor.chat.utils.AddressResolverUtils;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class Server extends Thread {
         serverThreads = new ArrayList<>();
         try {
             servSocket = new ServerSocket(port);
+            System.out.println(AddressResolverUtils.getLocalAddress());
         } catch (IOException ex) {
             System.out.println("Error initializing server");
             ex.printStackTrace();
@@ -50,6 +53,10 @@ public class Server extends Thread {
     
     synchronized public static ClientLocation getUser(String username) {
         return users.get(username);
+    }
+    
+    synchronized public static void deleteUser(String username) {
+        users.remove(username);
     }
     
     public void run() {

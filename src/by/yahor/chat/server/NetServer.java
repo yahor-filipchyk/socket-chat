@@ -32,7 +32,7 @@ public class NetServer extends NetPeer {
     
     public NetServer(Socket socket) throws IOException {
         super(socket);
-        commandReader = new DataInputStream(getSocket().getInputStream());
+        commandReader = new DataInputStream(socket.getInputStream());
         commandWriter = new DataOutputStream(socket.getOutputStream());
     }
     
