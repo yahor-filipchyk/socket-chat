@@ -12,22 +12,22 @@ import java.util.Arrays;
  */
 public class ClientLocation {
     
-    private byte[] ipv4;
+    private int[] ipv4;
     private int port;
     
     public ClientLocation() {        
     }
     
-    public ClientLocation(byte[] ipv4, int port) {   
+    public ClientLocation(int[] ipv4, int port) {   
         this.ipv4 = ipv4;
         this.port = port;
     }
 
-    public byte[] getIpv4() {
+    public int[] getIpv4() {
         return ipv4;
     }
 
-    public void setIpv4(byte[] ipv4) {
+    public void setIpv4(int[] ipv4) {
         this.ipv4 = ipv4;
     }
 
