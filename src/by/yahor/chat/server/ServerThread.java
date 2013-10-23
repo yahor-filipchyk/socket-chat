@@ -3,7 +3,6 @@ package by.yahor.chat.server;
 import by.yahor.chat.client.ClientLocation;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
 import my.yahorfilipchyk.console.Console;
 
 /**

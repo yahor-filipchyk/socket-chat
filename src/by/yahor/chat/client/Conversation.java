@@ -2,10 +2,8 @@
 package by.yahor.chat.client;
 
 import by.yahor.chat.server.NetPeer;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import my.yahorfilipchyk.console.Console;
 
 /**
  *

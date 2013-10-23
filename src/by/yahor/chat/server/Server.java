@@ -4,14 +4,12 @@ package by.yahor.chat.server;
 import by.yahor.chat.client.ClientLocation;
 import by.yahor.chat.utils.AddressResolverUtils;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -27,17 +25,13 @@ public class Server extends Thread {
     private static Map<String, ClientLocation> users = new HashMap<>();
     private List<ServerThread> serverThreads;
     
-    public Server(int port) {
+    public Server(int port) throws IOException {
         this.port = port;
         this.stoped = false;
         serverThreads = new ArrayList<>();
-        try {
-            servSocket = new ServerSocket(port);
-            System.out.println(AddressResolverUtils.getLocalAddress());
-        } catch (IOException ex) {
-            System.out.println("Error initializing server");
-            ex.printStackTrace();
-        }
+        servSocket = new ServerSocket(port);
+        // address of server
+        System.out.println(AddressResolverUtils.getLocalAddress());  
     }
     
     synchronized public static boolean userExists(String username) {

@@ -3,14 +3,9 @@ package by.yahor.chat.client;
 import by.yahor.chat.server.NetPeer;
 import by.yahor.chat.server.NetServer;
 import java.io.IOException;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 import my.yahorfilipchyk.console.Console;
 
 /**
@@ -116,7 +111,7 @@ public class Client {
         server = new NetServer(socket);
     }
     
-    public static void main(String args[]) {
+    private static void main(String args[]) {
         Client client = null;      
         String command = "";
         boolean connected = false;
