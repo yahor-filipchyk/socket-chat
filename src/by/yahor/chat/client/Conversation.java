@@ -12,11 +12,17 @@ import java.util.List;
 public class Conversation extends Thread {
     
     private NetPeer peer;
+    private String name;
     private boolean finished = false;
     private List<MessageListener> listeners = new ArrayList<>();
     
-    public Conversation(NetPeer peer) {
+    public Conversation(NetPeer peer, String name) {
         this.peer = peer;
+        this.name = name;
+    }
+    
+    public String getConversationName() {
+        return name;
     }
     
     public void addMessageListener(MessageListener listener) {

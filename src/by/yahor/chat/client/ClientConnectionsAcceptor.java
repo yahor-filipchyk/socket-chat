@@ -22,12 +22,14 @@ import my.yahorfilipchyk.console.Console;
  */
 public class ClientConnectionsAcceptor extends Thread {
     
+//    private String username;
     private int port;
     private boolean closed = true;
     private ServerSocket connectionAcceptor;
     private List<ConversationListener> listeners = new ArrayList<>();;
     
     public ClientConnectionsAcceptor() {
+//        this.username = clientName;
         bindAcceptor();
     }
     
@@ -43,8 +45,9 @@ public class ClientConnectionsAcceptor extends Thread {
                 Console.writeLine("Connection accepted");
                 if (client != null && client.isConnected() && client.isBound()) {
                     NetPeer peer = new NetPeer(client);
+                    String username = peer.resieveMessage();
                     for (ConversationListener listener : listeners) {
-                        Conversation conversation = new Conversation(peer);
+                        Conversation conversation = new Conversation(peer, username);
                         listener.conversationCreated(conversation);
                     }
                 }

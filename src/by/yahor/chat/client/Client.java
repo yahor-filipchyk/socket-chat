@@ -18,6 +18,7 @@ public class Client {
     private ClientConnectionsAcceptor localServer;
     private String serverHost;
     private int serverPort;
+    private String name;
     
     public Client(String serverHost, int serverPort) throws IOException {
         this.serverHost = serverHost;
@@ -51,6 +52,7 @@ public class Client {
             case NetServer.REGISTRATION_OK:
                 registered = true;
                 localServer.start();
+                this.name = username;
                 break;
             case NetServer.USER_EXISTS:
                 registered = false;
@@ -81,7 +83,8 @@ public class Client {
                     Socket socket = new Socket(InetAddress.getByName(address[0] + "." + address[1] + "." + address[2] + "." + address[3]), port);
                     if (socket != null && socket.isConnected() && socket.isBound()) {
                         NetPeer peer = new NetPeer(socket);
-                        conversation = new Conversation(peer);
+                        peer.sendMessage(name);
+                        conversation = new Conversation(peer, username);
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();

@@ -5,7 +5,7 @@ package by.yahor.chat.client;
  *
  * @author Yahor
  */
-interface ConversationListener {
+public interface ConversationListener {
     
     void conversationCreated(Conversation conversation);
 }
